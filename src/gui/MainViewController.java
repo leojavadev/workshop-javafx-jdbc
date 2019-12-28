@@ -32,7 +32,8 @@ public class MainViewController implements Initializable {
 	}
 	
 	public void onMenuItemDepartment() {
-		Alerts.showAlert(null, null, "Department", AlertType.INFORMATION);		
+		//Alerts.showAlert(null, null, "Department", AlertType.INFORMATION);
+		loadView("/gui/DepartmentList.fxml");
 	}
 	
 	public void onMenuItemAbout() {
