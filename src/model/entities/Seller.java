@@ -1,4 +1,4 @@
-package gui.entities;
+package model.entities;
 
 public class Seller {
 
