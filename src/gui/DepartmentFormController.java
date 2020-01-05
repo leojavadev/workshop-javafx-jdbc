@@ -9,11 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.dao.DaoFactory;
-import model.dao.DepartmentDao;
 import model.entities.Department;
 
 public class DepartmentFormController implements Initializable {
+	
+	private Department entity;
 	
 	@FXML
 	private TextField tfNome;
@@ -27,17 +27,9 @@ public class DepartmentFormController implements Initializable {
 	@FXML
 	private Label lbErro;
 	
-	private DepartmentDao dpDao = DaoFactory.createDepartmentDao();
-	
-	private DepartmentListController dpLC;
-	
 	@FXML
 	public void onBtSalvarAction() {
-		Department dp = new Department(null, tfNome.getText());
-		dpDao.insert(dp);
-		tfNome.setText("");
-		dpLC.updateTableView();
-		dpLC.initialize(null, null);
+		
 	}
 	
 	@FXML
@@ -45,6 +37,10 @@ public class DepartmentFormController implements Initializable {
 		
 	}
 
+	public void setDepartment(Department entity) {
+		this.entity = entity;
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO Auto-generated method stub
@@ -53,6 +49,13 @@ public class DepartmentFormController implements Initializable {
 	
 	private void initializeNodes() {
 		Constraints.setTextFieldMaxLength(tfNome, 30);
+	}
+	
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("O atributo entity é null");
+		}
+		tfNome.setText(entity.getName());
 	}
 
 }
