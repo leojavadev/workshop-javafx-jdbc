@@ -1,6 +1,5 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -13,6 +12,14 @@ public class DepartmentService {
 	
 	public List<Department> findAll(){
 		return dpDao.findAll();
+	}
+	
+	public void saveOrUpdate(Department obj) {
+		if(obj.getId() == null) {
+			dpDao.insert(obj);
+		} else {
+			dpDao.update(obj);
+		}
 	}
 
 }
