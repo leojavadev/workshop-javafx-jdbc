@@ -172,6 +172,5 @@ public class DepartmentListController implements Initializable, DataChangeListen
 				Alerts.showAlert("Erro ao excluir um Departamento", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
-		
 	}
 }
