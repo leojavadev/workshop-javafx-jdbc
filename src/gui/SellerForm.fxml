@@ -49,7 +49,7 @@
             <Label text="Departamento" GridPane.rowIndex="5" />
             <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="tfSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cbDepartmentId" prefHeight="25.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="cbDepartment" prefHeight="25.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <DatePicker fx:id="tfBirthDate" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
