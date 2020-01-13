@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -60,11 +62,11 @@ public class SellerFormController implements Initializable {
 	private Label lbErroEmail;
 	
 	@FXML
-	private DatePicker tfBirthDate;
+	private DatePicker dpBirthDate;
 	
 	@FXML
 	private Label lbErroBirthDate;
-	
+		
 	@FXML
 	private TextField tfSalary;
 	
@@ -116,21 +118,31 @@ public class SellerFormController implements Initializable {
 		ValidationException exception = new ValidationException("Erro de validação!");
 		
 		obj.setId(Utils.tryParseToInt(tfId.getText()));
-		
+				
 		if(tfNome.getText() == null || tfNome.getText().trim().equals("")) {
 			exception.addErrors("nome", "   Esse campo deve ser preenchido!");
 		}
+		obj.setName(tfNome.getText());
 		
 		if(tfEmail.getText() == null || tfEmail.getText().trim().equals("")) {
 			exception.addErrors("email", "   Esse campo deve ser preenchido!");
+		}
+		obj.setEmail(tfEmail.getText());
+		
+		if(dpBirthDate.getValue() == null) {
+			exception.addErrors("birthDate", "   Esse campo deve ser preenchido!");
+		} else {
+			Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setBirthDate(Date.from(instant));
 		}
 		
 		if(tfSalary.getText() == null || tfSalary.getText().trim().equals("")) {
 			exception.addErrors("baseSalary", "   Esse campo deve ser preenchido!");
 		}
+		obj.setBaseSalary(Utils.tryParseToDouble(tfSalary.getText()));
 		
-		obj.setName(tfNome.getText());
-		
+		obj.setDepartment(cbDepartment.getValue());
+				
 		if(exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -140,9 +152,21 @@ public class SellerFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
-		if(fields.contains("nome")) {
-			lbErro.setText(errors.get("nome"));
-		}
+//		if(fields.contains("nome")) {
+//			lbErro.setText(errors.get("nome"));
+//		} else {
+//			lbErro.setText("");
+//		} 
+//		
+//		OU
+		
+		lbErro.setText((fields.contains("nome") ? errors.get("nome") : ""));
+		
+		lbErroEmail.setText(fields.contains("email") ? errors.get("email") : "");
+		
+		lbErroBirthDate.setText(fields.contains("birthDate") ? errors.get("birthDate") : "");
+		
+		lbErroSalary.setText(fields.contains("baseSalary") ? errors.get("baseSalary") : "");
 	}
 
 	@FXML
@@ -174,7 +198,7 @@ public class SellerFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(tfNome, 70);
 		Constraints.setTextFieldDouble(tfSalary);
 		Constraints.setTextFieldMaxLength(tfEmail, 50);
-		Utils.formatDatePicker(tfBirthDate, "dd/MM/yyyy");
+		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
 		initializeComboBoxDepartment();
 	}
 	
@@ -186,7 +210,7 @@ public class SellerFormController implements Initializable {
 		tfNome.setText(entity.getName());
 		tfEmail.setText(entity.getEmail());
 		if(entity.getBirthDate() != null) {
-			tfBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
+			dpBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
 		}
 		tfSalary.setText(String.format("%.2f", entity.getBaseSalary()));
 		if(entity.getDepartment() == null) {
