@@ -31,7 +31,7 @@
             <TableColumn fx:id="tableColumnEmail" prefWidth="75.0" text="E-mail" />
             <TableColumn fx:id="tableColumnBirthDate" prefWidth="75.0" text="Nascimento" />
             <TableColumn fx:id="tableColumnSalary" prefWidth="75.0" text="Salário" />
-            <TableColumn fx:id="tableColumnDepartmentId" prefWidth="120.0" text="Departamento" />
+            <TableColumn fx:id="tableColumnDepartment" prefWidth="120.0" text="Departamento" />
             <TableColumn fx:id="tableColumnEdit" prefWidth="75.0" />
             <TableColumn fx:id="tableColumnRemove" prefWidth="75.0" />
         </columns>
